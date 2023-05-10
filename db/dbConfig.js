@@ -1,7 +1,13 @@
 const pgp = require("pg-promise")();
 require("dotenv").config()
+const { DATABASE_URL } = process.env;
 
-const cn = {
+const cn = DATABASE_URL
+? {
+    connectionString: DATABASE_URL,
+    max: 30,
+}
+: {
     host: process.env.PG_HOST,
     port: process.env.PG_PORT,
     database: process.env.PG_DATABASE,
